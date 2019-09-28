@@ -14,6 +14,8 @@ def score_IPAQ_short(IPAQ_data, truncate=True, save_csv=False):
     Note: this function does not clean the data. Please ensure the data is
     cleaned before scoring with this funciton. See above protocol for data
     cleaning instructions. Any missing values should be = 0.
+    @author: Rory Boyle rorytboyle@gmail.com
+    @date: 28/09/2019    
 
     :param IPAQ_data: pandas dataframe or csv file containing subject ids and
                 responses for each subject in the following order:
