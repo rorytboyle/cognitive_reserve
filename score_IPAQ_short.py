@@ -109,7 +109,7 @@ def score_IPAQ_short(IPAQ_data, truncate=True, save_csv=False):
     scored_data['totalMET'] = scored_data[['vigorousMET', 'moderateMET',
                                            'walkingMET']].sum(axis=1)
 
-    # get categorical variables TO BE IMPLEMENTED
+    # get categorical variables
     # high category
     # a) 3+ days of vigorous activity  w/ total met mins <= 1500
     high = ((data.iloc[:, 1] >= 3) & (scored_data['totalTime'] >= 1500)) | (
@@ -128,7 +128,6 @@ def score_IPAQ_short(IPAQ_data, truncate=True, save_csv=False):
     mod_notHigh = mod != high
             
     # low = if not in vigorous or moderate categories
-    
     scored_data['category'] = np.where(high, 'High',
                (np.where(mod, 'Moderate', 'Low')))
                
