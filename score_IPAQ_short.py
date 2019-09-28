@@ -7,9 +7,10 @@ def score_IPAQ_short(IPAQ_data, truncate=True, save_csv=False):
     Scores the IPAQ Short Form following the IPAQ scoring protocol as available
     here: https://sites.google.com/site/theipaq/scoring-protocol or here:
     www.ipaq.ki.se
-    Returns a dataframe with scored IPAQ data specifically metabolic minutes
-    per week for each activity category and the total metabolic minutes per
-    week.
+    Returns a dataframe with scored IPAQ data (including metabolic minutes per
+    week for each activity category, total metabolic minutes per week,
+    categorical physical activity group (high, moderate, low), and indicates
+    whether case is considered an outlier.
     Note: this function does not clean the data. Please ensure the data is
     cleaned before scoring with this funciton. See above protocol for data
     cleaning instructions. Any missing values should be = 0.
@@ -115,7 +116,7 @@ def score_IPAQ_short(IPAQ_data, truncate=True, save_csv=False):
     high = ((data.iloc[:, 1] >= 3) & (scored_data['totalTime'] >= 1500)) | (
     # OR b) 7 days of any activity w/ total met mins <= 3000
             (data.iloc[:, 1] >= 7) & (scored_data['totalTime'] >= 3000))
-    
+
     # moderate category
     # a) 3+ days of <= 20 mins of vigorous activity per day
     mod = ((data.iloc[:, 4] >= 3) & (scored_data['vigorousTime'] >= 20)) | (
@@ -124,10 +125,9 @@ def score_IPAQ_short(IPAQ_data, truncate=True, save_csv=False):
                     ['moderateTime', 'walkingTime']].sum(axis=1) >= 30)) | (
     # OR c) 5+ days of any activity w/ total met mins >= 600    
             (data.iloc[:, 4] >= 5) & (scored_data['totalMET'] >= 600))
-    # get moderate but NOT high
-    mod_notHigh = mod != high
-            
-    # low = if not in vigorous or moderate categories
+
+
+    # assign categories --> low = if not in vigorous or moderate categories
     scored_data['category'] = np.where(high, 'High',
                (np.where(mod, 'Moderate', 'Low')))
                
