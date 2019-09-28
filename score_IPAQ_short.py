@@ -1,6 +1,3 @@
-data = all_cogRes[['MRN', 'bh101', 'bh102h', 'bh102m', 'bh103', 'bh104h',
-                 'bh104m', 'bh105', 'bh106h', 'bh106m', 'bh107']]
-data.replace(-1, np.nan, inplace=True) # remove this 
 import pandas as pd
 import numpy as np
 
@@ -20,7 +17,7 @@ def score_IPAQ_short(IPAQ_data, truncate=True, save_csv=False):
     :param IPAQ_data: pandas dataframe or csv file containing subject ids and
                 responses for each subject in the following order:
                     - Column 1 = subject ids
-                    - Column 2 =  Q1 (vigorous days)
+                    - Column 2 = Q1 (vigorous days)
                     - Column 3 = Q2a (vigorous hours)
                     - Column 4 = Q2b (vigorous mins)
                     - Column 5 = Q3 (moderate days)
@@ -56,7 +53,8 @@ def score_IPAQ_short(IPAQ_data, truncate=True, save_csv=False):
                     - Column 8 = metabolic mins per week (moderate)
                     - Column 9 = metabolic mins per week (walking)
                     - Column 10 = metabolic mins per week (total)
-                    - Column 11 = categorical scores (High/Moderate/Low)
+                    - Column 11 = category (High/Moderate/Low physical activity
+                                            categories)
     """
     # read in csv if IPAQ_data is a csv file
     if isinstance(IPAQ_data, pd.DataFrame):
@@ -111,15 +109,29 @@ def score_IPAQ_short(IPAQ_data, truncate=True, save_csv=False):
     scored_data['totalMET'] = scored_data[['vigorousMET', 'moderateMET',
                                            'walkingMET']].sum(axis=1)
 
-    # get categorical variables
+    # get categorical variables TO BE IMPLEMENTED
     # high category
-    # high a) 3+ days of vigorous activity  w/ total met mins <= 1500    
-    # high b) 7 days of any activity w/ total met mins <= 3000
+    # a) 3+ days of vigorous activity  w/ total met mins <= 1500
+    high = ((data.iloc[:, 1] >= 3) & (scored_data['totalTime'] >= 1500)) | (
+    # OR b) 7 days of any activity w/ total met mins <= 3000
+            (data.iloc[:, 1] >= 7) & (scored_data['totalTime'] >= 3000))
     
     # moderate category
-    # moderate a) 3+ days of <= 20 mins of vigorous activity per day
-    # moderate b) 5+ days of <= 30 mins of moderate and/or walking activity
-    # moderate c) 5+ days of any activity w/ total met mins <= 600
+    # a) 3+ days of <= 20 mins of vigorous activity per day
+    mod = ((data.iloc[:, 4] >= 3) & (scored_data['vigorousTime'] >= 20)) | (
+    # OR b) 5+ days of <= 30 mins of moderate and/or walking activity
+            (data.iloc[:, 4] >= 5) & (scored_data[
+                    ['moderateTime', 'walkingTime']].sum(axis=1) >= 30)) | (
+    # OR c) 5+ days of any activity w/ total met mins >= 600    
+            (data.iloc[:, 4] >= 5) & (scored_data['totalMET'] >= 600))
+    # get moderate but NOT high
+    mod_notHigh = mod != high
+            
+    # low = if not in vigorous or moderate categories
+    
+    scored_data['category'] = np.where(high, 'High',
+               (np.where(mod, 'Moderate', 'Low')))
+               
     # save csv if specified by user
     if save_csv:
         scored_data.to_csv('IPAQ_scored.csv')
