@@ -10,12 +10,13 @@ def score_IPAQ_short(IPAQ_data, truncate=True, save_csv=False):
     Returns a dataframe with scored IPAQ data (including metabolic minutes per
     week for each activity category, total metabolic minutes per week,
     categorical physical activity group (high, moderate, low), and indicates
-    whether case is considered an outlier.
+    whether case is considered an outlier (as per guidelines).
     Note: this function does not clean the data. Please ensure the data is
     cleaned before scoring with this funciton. See above protocol for data
     cleaning instructions. Any missing values should be = 0.
     @author: Rory Boyle rorytboyle@gmail.com
     @date: 28/09/2019    
+    NOTE: Please link to/acknowledge this code if using it to score IPAQ data
 
     :param IPAQ_data: pandas dataframe or csv file containing subject ids and
                 responses for each subject in the following order:
