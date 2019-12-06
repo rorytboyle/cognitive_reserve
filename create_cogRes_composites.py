@@ -1,7 +1,7 @@
 import pandas as pd
 from itertools import combinations
 
-def create_unique_combinations(df, columns):
+def create_unique_combinations(df):
     """
     Creates a composite measure for every possible combination of
     cognitive reserve proxies. Credit to StackOverflow User WeNYoBenfor optimising my code and giving 
@@ -9,9 +9,8 @@ def create_unique_combinations(df, columns):
 
     :param df: pandas dataframe containing subject ids (as the index) and
                 cognitive reserve data
-    :param columns: List of strings containing column names for columns in data
-                    containing cognitive reserve proxies.
-    :return composites: dataframe with every possible unique combination of 'columns' in 'data'.
+    :return composites: dataframe with every possible unique combination of 
+    original dataframe (df) columns
     """
     # Create unique combinations of each column, without repetition, based on column labels
     unique_combos = sum([list(map(list, combinations(df.columns, i)))
@@ -21,6 +20,7 @@ def create_unique_combinations(df, columns):
     composites= pd.DataFrame(
             {'_'.join(x) : df[x].mean(axis=1) for x in unique_combos if x !=[]})
   
+    return composites
 
 def test_unique_combinations(df, columns, composites):
     """
