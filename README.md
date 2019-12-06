@@ -8,4 +8,4 @@ _score_IPAQ_short_ = Scores answers from the International Physical Activity Que
 _make_interaction_plot_ = Creates interaction plots so that the moderation effects of a cognitive reserve variable can be visualised.
 
 # To-do
-1) Edit create_cogRes_composites.py so that a variable number of proxies can be used instead of strictly 7
+~1) Edit create_cogRes_composites.py so that a variable number of proxies can be used instead of strictly 7~
