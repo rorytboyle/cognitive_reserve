@@ -16,7 +16,7 @@ def create_unique_combinations(df):
     unique_combos = sum([list(map(list, combinations(df.columns, i)))
             for i in range(len(df.columns) + 1)], [])
     
-    # Sum the columns in each unique combination and add to a new dataframe
+    # Average the columns in each unique combination and add to a new dataframe
     composites= pd.DataFrame(
             {'_'.join(x) : df[x].mean(axis=1) for x in unique_combos if x !=[]})
   
