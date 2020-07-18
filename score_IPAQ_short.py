@@ -104,7 +104,7 @@ def score_IPAQ_short(IPAQ_data, truncate=True, save_csv=False):
     scored_data['vigorousMET'] = 8 * scored_data['vigorousTime']
 
     # moderate met p/w = 4.4 * moderate time
-    scored_data['moderateMET'] = 4.4 * scored_data['moderateTime']
+    scored_data['moderateMET'] = 4 * scored_data['moderateTime']
 
     # walking met p/w = 3.3 * walking time
     scored_data['walkingMET'] = 3.3 * scored_data['walkingTime']
