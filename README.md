@@ -11,3 +11,4 @@ _score_CRIq_ = Scores answers from online versions of the Cognitive Reserve Inde
 
 _score_CSAQ_frequency_ = Scores answers from Cognitively Stimulating Activities Questionnaire (Wilson et al., 2003)
 
+_score_SNI_Cohen_ = Scores answers from Social Network Index (Cohen et al., 1997)
