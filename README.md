@@ -9,3 +9,5 @@ _make_interaction_plot_ = Creates interaction plots so that the moderation effec
 
 _score_CRIq_ = Scores answers from online versions of the Cognitive Reserve Index Questionnaire (Nucci et al., 2012)
 
+_score_CSAQ_frequency_ = Scores answers from Cognitively Stimulating Activities Questionnaire (Wilson et al., 2003)
+
