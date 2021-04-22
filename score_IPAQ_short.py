@@ -44,8 +44,6 @@ def score_IPAQ_short(IPAQ_data, truncate=True, save_csv=False):
     :param save_csv: Flag to specify whether to save dataframe as a csv in.
                      Will be saved in the current working directory.
     :param X: predictor variable(s)
-    :param saveto: folder specifying dir to save results and
-                  plots
     :return IPAQ_scored: dataframe with following columns:
                     - Column 1 = subject ids
                     - Column 2 = total mins of vigorous activity per week
