@@ -47,9 +47,6 @@ def score_CRIq(df):
     import pandas    
     import math
     import numpy
-    
-    # test
-    df=cri_q.copy()
     #%% 1) Prep dataframe
     CRIq_raw = pd.DataFrame(columns=['subid', 'edu_raw', 'working_raw',
                                      'leisure_raw'])
@@ -58,6 +55,11 @@ def score_CRIq(df):
     
     CRIq_raw['subid'] = df.iloc[:,0]
     CRIq_standardised['subid'] = df.iloc[:,0]
+          
+    # Check for any participants with 0s in raw questionnaire answers
+    df.set_index('subid', inplace=True)
+    zero_rows = (df==0).all(axis=1)  # retain for end to replace final scores
+    df.reset_index(inplace=True)     # with NaNs for ppts without answers
     
     #%% 2) Get edu subscores
     # "raw score of this section is the sum of these two values"
@@ -180,10 +182,23 @@ def score_CRIq(df):
     CRIq_standardised['leisure'] = (leisure_residual * 15)+100
     
     #%% 4) Calculate total CRIq score
+    # replace nans with zeros to account for scores of zero (e.g. in working 
+    # activity)
+    CRIq_standardised.replace(np.nan, 0, inplace=True)
+    
     # get avg of three subscores
     CRIq_standardised['total'] = CRIq_standardised.iloc[:, 1:4].mean(axis=1)
     
     # scale total score
     CRIq_standardised['total'] = ((((CRIq_standardised['total']-100)/11.32277)*15)+100)
+    
+    #%% 5) Set values for any participants who didn't answer questionnaire (e.g.
+    # answers were all zero) to NaN - if this is skipped, they will still be 
+    # given a score despite not answering questionnaire
+    
+    # Replace scores for these participants with NaNs in final CRIq scores
+    CRIq_standardised.set_index('subid', inplace=True)
+    CRIq_standardised[zero_rows] = np.nan
+    CRIq_standardised.reset_index(inplace=True)
     
     return CRIq_standardised
