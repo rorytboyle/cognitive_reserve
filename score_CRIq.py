@@ -30,19 +30,13 @@ def score_CRIq(df):
                 1 (Often/Always).
                 All missing data or NaN values should be set to equal 0.
 
-    :return CRIq_raw: dataframe with raw CRIq scores with following columns:
-                    - Column 1 = participant id
-                    - Column 2 = education subscore (raw)
-                    - Column 3 = working activity subscore (raw)
-                    - Column 4 = leisure time subscore (raw)
-                    - Column 5 = total score (raw)
     :return CRIq_standardised: dataframe with raw CRIq scores with following 
                 columns:
-                    - Column 1 = participant id
-                    - Column 2 = education subscore (standardised)
-                    - Column 3 = working activity subscore (standardised)
-                    - Column 4 = leisure time subscore (standardised)
-                    - Column 5 = total score (standardised)
+                    - Column 1 (subid) = participant id
+                    - Column 2 (CRIq_edu) = education subscore (standardised)
+                    - Column 3 (CRIq_working) = working activity subscore (standardised)
+                    - Column 4 (CRIq_leisure) = leisure time subscore (standardised)
+                    - Column 5 (CRIq_total) = total score (standardised)
     """
     import pandas    
     import math
