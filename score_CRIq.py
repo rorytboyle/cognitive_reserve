@@ -30,7 +30,7 @@ def score_CRIq(df):
                 1 (Often/Always).
                 All missing data or NaN values should be set to equal 0.
 
-    :return CRIq_standardised: dataframe with raw CRIq scores with following 
+    :return CRIq_standardised: dataframe with CRIq scores with following 
                 columns:
                     - Column 1 (subid) = participant id
                     - Column 2 (CRIq_edu) = education subscore (standardised)
