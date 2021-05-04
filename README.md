@@ -1,6 +1,6 @@
 Code for measuring cognitive reserve using behavioural and neuroimaging data
 
-If you use the functions (_create_cogRes_composites_, _score_IPAQ_short_, _make_interaction_plot_), please cite the following paper where it originates from: https://doi.org/10.21203/rs.3.rs-216364/v1
+If you use the functions (_create_cogRes_composites_, _score_IPAQ_short_, _make_interaction_plot_), please cite the following paper where the method in these functions is described: https://doi.org/10.21203/rs.3.rs-216364/v1
 
 For the other functions, please cite the repository DOI: 
 
