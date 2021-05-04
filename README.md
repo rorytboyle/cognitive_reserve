@@ -1,5 +1,10 @@
 Code for measuring cognitive reserve using behavioural and neuroimaging data
 
+If you use the functions (_create_cogRes_composites_, _score_IPAQ_short_, _make_interaction_plot_), please cite the following paper where it originates from: https://doi.org/10.21203/rs.3.rs-216364/v1
+
+For the other functions, please cite the repository DOI: 
+
+
 # Functions
 _create_cogRes_composites_ = Creates standardised composite measures of CR proxies. For example, given 7 cognitive reserve proxy measures, this code will standardise each proxy measure (i.e. z-score), and create every possible combination of each measure, resulting in 127 unique cognitive reserve measures.
 
